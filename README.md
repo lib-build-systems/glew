@@ -13,12 +13,12 @@ Each branch in a repository defines a specific build system for a specific versi
 ### Want to help?
 Yes please! I already have my hands full on creating a consistent cross-platform CMake experience for the libraries already included. If you have improvements or ready-and-tested config files for other build systems, don't hesitate to create pull requests per build system, per version.
 
-# GLEW
-Added CMakeLists.txt file for GLEW version 2.1.0
+# libpng
+Added CMakeLists.txt file for libpng version 1.6.36
 * Default installation paths:
-  * <CMAKE_INSTALL_PREFIX>/include/glew (.h, .hpp)
+  * <CMAKE_INSTALL_PREFIX>/include/libpng (.h, .hpp)
   * <CMAKE_INSTALL_PREFIX>/share/man (.1, .3, .5)
   * <CMAKE_INSTALL_PREFIX>/bin (.exe, .dll)
   * <CMAKE_INSTALL_PREFIX>/lib (.so, .lib)
-  * <CMAKE_INSTALL_PREFIX>/lib/cmake/glew (.cmake, .pc) 
+  * <CMAKE_INSTALL_PREFIX>/lib/cmake/libpng (.cmake, .pc) 
   
