@@ -81,48 +81,48 @@ endif ()
 
 if (glew-cmake_BUILD_SHARED)
 	if (glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(libglew_shared SHARED ${LIBGLEW_SRCS})
+		add_library(libglew SHARED ${LIBGLEW_SRCS})
 
-		set_target_properties(libglew_shared PROPERTIES
+		set_target_properties(libglew PROPERTIES
 		                      RUNTIME_OUTPUT_NAME "glew"
 		                      LIBRARY_OUTPUT_NAME "glew")
 
-		target_include_directories(libglew_shared PRIVATE
+		target_include_directories(libglew PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                   PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglew_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglew_shared
-                EXPORT libglew_shared
+		target_link_libraries(libglew ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS libglew
+                EXPORT libglew
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT libglew_shared DESTINATION lib/cmake/glew)
+		install(EXPORT libglew DESTINATION lib/cmake/glew)
 	endif ()
 
 	if (glew-cmake_BUILD_MULTI_CONTEXT)
-		add_library(libglewmx_shared SHARED ${LIBGLEW_SRCS})
+		add_library(libglewmx SHARED ${LIBGLEW_SRCS})
 
-		set_target_properties(libglewmx_shared PROPERTIES
+		set_target_properties(libglewmx PROPERTIES
 		                       RUNTIME_OUTPUT_NAME "glewmx"
 		                       LIBRARY_OUTPUT_NAME "glewmx")
 
-		target_compile_definitions(libglewmx_shared INTERFACE GLEW_MX)
-		target_include_directories(libglewmx_shared PRIVATE
+		target_compile_definitions(libglewmx INTERFACE GLEW_MX)
+		target_include_directories(libglewmx PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                     PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglewmx_shared ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglewmx_shared
-                EXPORT libglewmx_shared
+		target_link_libraries(libglewmx ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS libglewmx
+                EXPORT libglewmx
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT libglewmx_shared DESTINATION lib/cmake/glew)
+		install(EXPORT libglewmx DESTINATION lib/cmake/glew)
 	endif ()
 endif ()
 
