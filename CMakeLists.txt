@@ -65,7 +65,7 @@ if (glew-cmake_BUILD_STATIC)
 		set_target_properties(libglewmx_static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glewmx")
 		target_compile_definitions(libglewmx_static INTERFACE GLEW_MX)
-		target_include_directories(libglewms_static PRIVATE
+		target_include_directories(libglewmx_static PRIVATE
 									    				$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 											  	    PUBLIC
 						    							$<INSTALL_INTERFACE:include/glew>)
