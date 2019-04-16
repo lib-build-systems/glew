@@ -42,87 +42,87 @@ endif ()
 
 if (glew-cmake_BUILD_STATIC)
 	if (glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(libglew_static STATIC ${LIBGLEW_SRCS})
+		add_library(glew_static STATIC ${LIBGLEW_SRCS})
 
-		set_target_properties(libglew_static PROPERTIES
+		set_target_properties(glew_static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glew")
-		target_include_directories(libglew_static PRIVATE
+		target_include_directories(glew_static PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                   PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglew_static
-                EXPORT libglew_static
+		target_link_libraries(glew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS glew_static
+                EXPORT glew_static
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                )
-		install(EXPORT libglew_static DESTINATION lib/cmake/glew)
+		install(EXPORT glew_static DESTINATION lib/cmake/glew)
 	endif ()
 
 	if (glew-cmake_BUILD_MULTI_CONTEXT)
-		add_library(libglewmx_static STATIC ${LIBGLEW_SRCS})
+		add_library(glewmx_static STATIC ${LIBGLEW_SRCS})
 
-		set_target_properties(libglewmx_static PROPERTIES
+		set_target_properties(glewmx_static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glewmx")
-		target_compile_definitions(libglewmx_static INTERFACE GLEW_MX)
-		target_include_directories(libglewmx_static PRIVATE
+		target_compile_definitions(glewmx_static INTERFACE GLEW_MX)
+		target_include_directories(glewmx_static PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                     PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglewmx_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglewmx_static
-                EXPORT libglewmx_static
+		target_link_libraries(glewmx_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS glewmx_static
+                EXPORT glewmx_static
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                )
-		install(EXPORT libglewmx_static DESTINATION lib/cmake/glew)
+		install(EXPORT glewmx_static DESTINATION lib/cmake/glew)
 	endif ()
 endif ()
 
 if (glew-cmake_BUILD_SHARED)
 	if (glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(libglew SHARED ${LIBGLEW_SRCS})
+		add_library(glew SHARED ${LIBGLEW_SRCS})
 
-		set_target_properties(libglew PROPERTIES
+		set_target_properties(glew PROPERTIES
 		                      RUNTIME_OUTPUT_NAME "glew"
 		                      LIBRARY_OUTPUT_NAME "glew")
 
-		target_include_directories(libglew PRIVATE
+		target_include_directories(glew PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                   PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglew ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglew
-                EXPORT libglew
+		target_link_libraries(glew ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS glew
+                EXPORT glew
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT libglew DESTINATION lib/cmake/glew)
+		install(EXPORT glew DESTINATION lib/cmake/glew)
 	endif ()
 
 	if (glew-cmake_BUILD_MULTI_CONTEXT)
-		add_library(libglewmx SHARED ${LIBGLEW_SRCS})
+		add_library(glewmx SHARED ${LIBGLEW_SRCS})
 
-		set_target_properties(libglewmx PROPERTIES
+		set_target_properties(glewmx PROPERTIES
 		                       RUNTIME_OUTPUT_NAME "glewmx"
 		                       LIBRARY_OUTPUT_NAME "glewmx")
 
-		target_compile_definitions(libglewmx INTERFACE GLEW_MX)
-		target_include_directories(libglewmx PRIVATE
+		target_compile_definitions(glewmx INTERFACE GLEW_MX)
+		target_include_directories(glewmx PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                     PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/glew>)
-		target_link_libraries(libglewmx ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS libglewmx
-                EXPORT libglewmx
+		target_link_libraries(glewmx ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS glewmx
+                EXPORT glewmx
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT libglewmx DESTINATION lib/cmake/glew)
+		install(EXPORT glewmx DESTINATION lib/cmake/glew)
 	endif ()
 endif ()
 
@@ -141,11 +141,11 @@ if (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR} AND NOT ONLY_LIBS)
 	add_executable(visualinfo ${VISUALINFO_SRCS})
 
 	if (glew-cmake_BUILD_STATIC)
-		target_link_libraries(glewinfo libglew_static)
-		target_link_libraries(visualinfo libglew_static)
+		target_link_libraries(glewinfo glew_static)
+		target_link_libraries(visualinfo glew_static)
 	else ()
-		target_link_libraries(glewinfo libglew_shared)
-		target_link_libraries(visualinfo libglew_shared)
+		target_link_libraries(glewinfo glew_shared)
+		target_link_libraries(visualinfo glew_shared)
 	endif ()
 
 	install(TARGETS glewinfo visualinfo DESTINATION bin)
