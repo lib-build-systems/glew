@@ -42,41 +42,43 @@ endif ()
 
 if (glew-cmake_BUILD_STATIC)
 	if (glew-cmake_BUILD_SINGLE_CONTEXT)
-		add_library(glew_static STATIC ${LIBGLEW_SRCS})
+		add_library(glew-static STATIC ${LIBGLEW_SRCS})
 
-		set_target_properties(glew_static PROPERTIES
+		set_target_properties(glew-static PROPERTIES
 		                       ARCHIVE_OUTPUT_NAME "glew")
-		target_include_directories(glew_static PRIVATE
+		target_include_directories(glew-static PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                   PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/GL>)
-		target_link_libraries(glew_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-        install(TARGETS glew_static
-                EXPORT glew_static-targets
+		target_link_libraries(glew-static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+        install(TARGETS glew-static
+                EXPORT glew-static-targets
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                )
-        install(EXPORT glew_static-targets
+        install(EXPORT glew-static-targets
+                NAMESPACE glew::
                 DESTINATION lib/cmake/glew)
     endif ()
 
     if (glew-cmake_BUILD_MULTI_CONTEXT)
-        add_library(glewmx_static STATIC ${LIBGLEW_SRCS})
+        add_library(glewmx-static STATIC ${LIBGLEW_SRCS})
 
-        set_target_properties(glewmx_static PROPERTIES
+        set_target_properties(glewmx-static PROPERTIES
                                ARCHIVE_OUTPUT_NAME "glewmx")
-        target_compile_definitions(glewmx_static INTERFACE GLEW_MX)
-        target_include_directories(glewmx_static PRIVATE
+        target_compile_definitions(glewmx-static INTERFACE GLEW_MX)
+        target_include_directories(glewmx-static PRIVATE
                                                         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                     PUBLIC
 						  	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                                                         $<INSTALL_INTERFACE:include/GL>)
-		target_link_libraries(glewmx_static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
-		install(TARGETS glewmx_static
-                EXPORT glewmx_static-targets
+		target_link_libraries(glewmx-static ${GL_LIBRARY} ${PLATFORM_SPECIFIC_LIBRARIES})
+		install(TARGETS glewmx-static
+                EXPORT glewmx-static-targets
                 ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
                )
-		install(EXPORT glewmx_static-targets
+		install(EXPORT glewmx-static-targets
+                NAMESPACE glew::
                 DESTINATION lib/cmake/glew)
 	endif ()
 endif ()
@@ -101,7 +103,9 @@ if (glew-cmake_BUILD_SHARED)
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT glew-targets DESTINATION lib/cmake/glew)
+		install(EXPORT glew-targets
+                NAMESPACE glew::
+                DESTINATION lib/cmake/glew)
 	endif ()
 
 	if (glew-cmake_BUILD_MULTI_CONTEXT)
@@ -124,31 +128,33 @@ if (glew-cmake_BUILD_SHARED)
                 LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
                 RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
                )
-		install(EXPORT glewmx-targets DESTINATION lib/cmake/glew)
-	endif ()
+		install(EXPORT glewmx-targets
+                NAMESPACE glew::
+                DESTINATION lib/cmake/glew)
+    endif ()
 endif ()
 
 file(GLOB PUBLIC_HEADERS "include/GL/*.h")
 install(FILES ${PUBLIC_HEADERS} DESTINATION include/GL/)
 
 if (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR} AND NOT ONLY_LIBS)
-	set(GLEWINFO_SRCS ${SRC_DIR}/glewinfo.c)
-	set(VISUALINFO_SRCS ${SRC_DIR}/visualinfo.c)
-	if (MSVS)
-		list(APPEND GLEWINFO_SRCS ${RC_DIR}/glewinfo.rc)
-		list(APPEND VISUALINFO_SRCS ${RC_DIR}/visualinfo.rc)
-	endif ()
+    set(GLEWINFO_SRCS ${SRC_DIR}/glewinfo.c)
+    set(VISUALINFO_SRCS ${SRC_DIR}/visualinfo.c)
+    if (MSVS)
+        list(APPEND GLEWINFO_SRCS ${RC_DIR}/glewinfo.rc)
+        list(APPEND VISUALINFO_SRCS ${RC_DIR}/visualinfo.rc)
+    endif ()
 
-	add_executable(glewinfo ${GLEWINFO_SRCS})
-	add_executable(visualinfo ${VISUALINFO_SRCS})
+    add_executable(glewinfo ${GLEWINFO_SRCS})
+    add_executable(visualinfo ${VISUALINFO_SRCS})
 
-	if (glew-cmake_BUILD_STATIC)
-		target_link_libraries(glewinfo glew_static)
-		target_link_libraries(visualinfo glew_static)
-	else ()
-		target_link_libraries(glewinfo glew_shared)
-		target_link_libraries(visualinfo glew_shared)
-	endif ()
+    if (glew-cmake_BUILD_STATIC)
+        target_link_libraries(glewinfo glew_static)
+        target_link_libraries(visualinfo glew_static)
+    else ()
+        target_link_libraries(glewinfo glew_shared)
+        target_link_libraries(visualinfo glew_shared)
+    endif ()
 
-	install(TARGETS glewinfo visualinfo DESTINATION bin)
+    install(TARGETS glewinfo visualinfo DESTINATION bin)
 endif ()
