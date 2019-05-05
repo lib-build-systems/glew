@@ -58,7 +58,7 @@ if (glew-cmake_BUILD_STATIC)
                )
         install(EXPORT glew-static-targets
                 NAMESPACE glew::
-                DESTINATION lib/cmake/glew)
+                DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew)
     endif ()
 
     if (glew-cmake_BUILD_MULTI_CONTEXT)
@@ -79,7 +79,7 @@ if (glew-cmake_BUILD_STATIC)
                )
         install(EXPORT glewmx-static-targets
                 NAMESPACE glew::
-                DESTINATION lib/cmake/glew)
+                DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew)
     endif ()
 endif ()
 
@@ -105,7 +105,7 @@ if (glew-cmake_BUILD_SHARED)
                )
         install(EXPORT glew-targets
                 NAMESPACE glew::
-                DESTINATION lib/cmake/glew)
+                DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew)
 	endif ()
 
     if (glew-cmake_BUILD_MULTI_CONTEXT)
@@ -130,7 +130,7 @@ if (glew-cmake_BUILD_SHARED)
                )
 		install(EXPORT glewmx-targets
                 NAMESPACE glew::
-                DESTINATION lib/cmake/glew)
+                DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/glew)
     endif ()
 endif ()
 
